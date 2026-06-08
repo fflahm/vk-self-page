@@ -21,6 +21,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         "sections/benchmark_results.html"
     );
 
+    const script = document.createElement("script");
+    script.src = "static/js/benchmark_table.js";
+    script.type = "module";
+
+    document.body.appendChild(script);
+
     await loadSection(
         "footer-section",
         "sections/footer.html"
