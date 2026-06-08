@@ -1,181 +1,185 @@
 <!-- Cognitive Science Perspectives -->
-<div class="teaser-box" style="
-    background-color:#f8f8f8;
-    border-radius:12px;
-    padding:30px;
-    margin-top:20px;
-    margin-bottom:20px;
-">
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="teaser-box" style="
+        background-color:#f8f8f8;
+        border-radius:12px;
+        padding:30px;
+        margin-top:20px;
+        margin-bottom:20px;
+    ">
 
-    <h2 class="title has-text-centered">
-        Cognitive Science Perspectives - 3
-    </h2>
+        <h2 class="title has-text-centered">
+            Cognitive Science Perspectives - 3
+        </h2>
 
-    <p class="has-text-centered" style="font-size:1.1rem; margin-bottom:30px;">
-        Existing benchmarks capture different facets of self-centric intelligence,
-        from primitive agency and body-schema formation to explicit self-recognition.
-    </p>
+        <p class="has-text-centered" style="font-size:1.1rem; margin-bottom:30px;">
+            Existing benchmarks capture different facets of self-centric intelligence,
+            from primitive agency and body-schema formation to explicit self-recognition.
+        </p>
 
-    <table class="table is-bordered is-fullwidth" style="background:white;">
-        <thead>
-            <tr>
-                <th style="width:50%; text-align:center;">Cognitive Science Background</th>
-                <th style="width:50%; text-align:center;">Benchmark Feature</th>
-            </tr>
-        </thead>
+        <table class="table is-bordered is-fullwidth" style="background:white;">
+            <thead>
+                <tr>
+                    <th style="width:50%; text-align:center;">Cognitive Science Background</th>
+                    <th style="width:50%; text-align:center;">Benchmark Feature</th>
+                </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
 
-            <!-- MirrorBench -->
-            <tr>
+                <!-- MirrorBench -->
+                <tr>
 
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/msr.png"
-                                 style="border-radius:8px;">
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/msr.png"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>Mirror Self-Recognition Test</strong>
+                                (<a href="https://www.science.org/doi/abs/10.1126/science.167.3914.86"
+                                    target="_blank">Gallup, 1970</a>; <a href="https://www.sciencedirect.com/science/article/pii/S1053810003000813"
+                                    target="_blank">Rochat, 2003</a>)<br>
+                                A classic paradigm in comparative psychology and developmental science.
+                                In the mark test, a visible mark is secretly placed on an individual's body;
+                                successful recognition is demonstrated when the individual uses a mirror to
+                                inspect or touch the mark on itself rather than on the reflected image.
+                            </div>
                         </div>
-                        <div class="column is-6">
-                            <strong>Mirror Self-Recognition Test</strong>
-                            (<a href="https://www.science.org/doi/abs/10.1126/science.167.3914.86"
-                                target="_blank">Gallup, 1970</a>; <a href="https://www.sciencedirect.com/science/article/pii/S1053810003000813"
-                                target="_blank">Rochat, 2003</a>)<br>
-                            A classic paradigm in comparative psychology and developmental science.
-                            In the mark test, a visible mark is secretly placed on an individual's body;
-                            successful recognition is demonstrated when the individual uses a mirror to
-                            inspect or touch the mark on itself rather than on the reflected image.
+                    </td>
+
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/mirrorbench.png"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <a href="https://github.com/fflahm/MirrorBench"
+                                    target="_blank"><strong>MirrorBench</strong></a><br>
+                                We extend the classical Mirror Self-Recognition paradigm to embodied
+                                physical simulation, enabling the evaluation of self-centric intelligence in
+                                MLLMs. The benchmark features a four-level protocol
+                                spanning mirror perception, mirror reasoning, mirror discovery, and explicit
+                                self-recognition.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/mirrorbench.png"
-                                 style="border-radius:8px;">
+                </tr>
+
+                <!-- Gridworld -->
+                <tr>
+
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/placeholder.png"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>Contingency Detection Theory</strong>
+                                (<a href="https://www.jstor.org/stable/23084026"
+                                    target="_blank">Watson, 1972</a>; <a href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781410604194-7/early-socio-emotional-development-contingency-perception-social-biofeedback-model-gy%C3%B6rgy-gergely-john-watson"
+                                    target="_blank">Gergely & Watson, 2014</a>)<br>
+                                Early agency emerges when infants discover consistent
+                                action-effect contingencies between their own movements
+                                and environmental changes.
+                            </div>
                         </div>
-                        <div class="column is-6">
-                            <a href="https://github.com/fflahm/MirrorBench"
-                                target="_blank"><strong>MirrorBench</strong></a><br>
-                            We extend the classical Mirror Self-Recognition paradigm to embodied
-                            physical simulation, enabling the evaluation of self-centric intelligence in
-                            MLLMs. The benchmark features a four-level protocol
-                            spanning mirror perception, mirror reasoning, mirror discovery, and explicit
-                            self-recognition.
+                    </td>
+
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/gridworld_2d.gif"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>SAM – Gridworld-2D</strong><br>
+                                Measures primitive agency discovery by requiring
+                                agents to identify which entity is under their control
+                                through sensorimotor interaction.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-            </tr>
+                </tr>
 
-            <!-- Gridworld -->
-            <tr>
+                <!-- RTS -->
+                <tr>
 
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/placeholder.png"
-                                 style="border-radius:8px;">
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/placeholder.png"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>Comparator Model of Agency</strong><br>
+                                Agency arises from comparing predicted and observed
+                                consequences of actions, enabling causal attribution
+                                in complex environments.
+                            </div>
                         </div>
-                        <div class="column is-6">
-                            <strong>Contingency Detection Theory</strong>
-                            (<a href="https://www.jstor.org/stable/23084026"
-                                target="_blank">Watson, 1972</a>; <a href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781410604194-7/early-socio-emotional-development-contingency-perception-social-biofeedback-model-gy%C3%B6rgy-gergely-john-watson"
-                                target="_blank">Gergely & Watson, 2014</a>)<br>
-                            Early agency emerges when infants discover consistent
-                            action-effect contingencies between their own movements
-                            and environmental changes.
+                    </td>
+
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/rts_arena.gif"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>SAM – RTS Arena</strong><br>
+                                Tests self-identification under multi-agent interactions,
+                                adversarial dynamics, and causal ambiguity.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/gridworld_2d.gif"
-                                 style="border-radius:8px;">
+                </tr>
+
+                <!-- Phys3D -->
+                <tr>
+
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/placeholder.png"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>Body Schema Theory</strong><br>
+                                The brain maintains an internal representation of the
+                                body and its movement capabilities to support embodied
+                                interaction.
+                            </div>
                         </div>
-                        <div class="column is-6">
-                            <strong>SAM – Gridworld-2D</strong><br>
-                            Measures primitive agency discovery by requiring
-                            agents to identify which entity is under their control
-                            through sensorimotor interaction.
+                    </td>
+
+                    <td>
+                        <div class="columns is-vcentered">
+                            <div class="column is-6">
+                                <img src="static/images/phys_3d.png"
+                                    style="border-radius:8px;">
+                            </div>
+                            <div class="column is-6">
+                                <strong>SAM – Phys-3D</strong><br>
+                                Evaluates body-schema formation by requiring agents
+                                to infer hidden action semantics and control a body
+                                under changing viewpoints.
+                            </div>
                         </div>
-                    </div>
-                </td>
+                    </td>
 
-            </tr>
+                </tr>
 
-            <!-- RTS -->
-            <tr>
+            </tbody>
+        </table>
 
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/placeholder.png"
-                                 style="border-radius:8px;">
-                        </div>
-                        <div class="column is-6">
-                            <strong>Comparator Model of Agency</strong><br>
-                            Agency arises from comparing predicted and observed
-                            consequences of actions, enabling causal attribution
-                            in complex environments.
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/rts_arena.gif"
-                                 style="border-radius:8px;">
-                        </div>
-                        <div class="column is-6">
-                            <strong>SAM – RTS Arena</strong><br>
-                            Tests self-identification under multi-agent interactions,
-                            adversarial dynamics, and causal ambiguity.
-                        </div>
-                    </div>
-                </td>
-
-            </tr>
-
-            <!-- Phys3D -->
-            <tr>
-
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/placeholder.png"
-                                 style="border-radius:8px;">
-                        </div>
-                        <div class="column is-6">
-                            <strong>Body Schema Theory</strong><br>
-                            The brain maintains an internal representation of the
-                            body and its movement capabilities to support embodied
-                            interaction.
-                        </div>
-                    </div>
-                </td>
-
-                <td>
-                    <div class="columns is-vcentered">
-                        <div class="column is-6">
-                            <img src="static/images/phys_3d.png"
-                                 style="border-radius:8px;">
-                        </div>
-                        <div class="column is-6">
-                            <strong>SAM – Phys-3D</strong><br>
-                            Evaluates body-schema formation by requiring agents
-                            to infer hidden action semantics and control a body
-                            under changing viewpoints.
-                        </div>
-                    </div>
-                </td>
-
-            </tr>
-
-        </tbody>
-    </table>
-
-</div>
+    </div>
+  </div>
+</section>
