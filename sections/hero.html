@@ -1,0 +1,149 @@
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <!-- title -->
+              <h1 class="title publication-title is-2">MirrorBench: Evaluating Self-centric Intelligence in MLLMs by Introducing a Mirror</h1>
+              <!-- authors, 后续可以加上链接 -->
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  Shengyu Guo,
+                </span>
+                <span class="author-block">
+                  Tongrui Ye,
+                </span>
+                <span class="author-block">
+                  Jianbo Zhang,
+                </span>
+                <span class="author-block">
+                  Zicheng Zhang,
+                </span>
+                <span class="author-block">
+                  Chunyi Li,
+                </span>
+                <span class="author-block">
+                  Guangtao Zhai
+                </span>
+              </div>
+              <!-- institutes, 需不需要增/删/改？ -->
+              <div>
+                <span class="author-block">
+                  Shanghai AI Lab
+                </span>
+              </div>
+              <!-- journal/conference -->
+              <!-- <h1 class="title is-4"><br>Anonymous Submission</h1> -->
+
+              <!-- <div>
+                <span class="eql-cntrb">
+                  <small>
+                    <sup>*</sup> Corresponding author. E-mail: <a href="mailto:zhaiguangtao@pjlab.org.cn">zhaiguangtao@pjlab.org.cn</a>
+                  </small>
+                </span>
+              </div> -->
+
+              <div class="column has-text-centered"> <!-- TBD -->
+                <div class="publication-links">
+                  <!-- paper link --> 
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2604.14785" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                  <!-- ArXiv abstract link -->
+                  <!-- <span class="link-block">
+                    <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span> -->
+                  <!-- github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/fflahm/MirrorBench" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                  <!-- data link -->
+                  <span class="link-block">
+                    <a href="https://huggingface.co/datasets/flahm/MirrorBenchAssets" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-database"></i>
+                      </span>
+                      <span>Data</span>
+                    </a>
+                  </span>
+                  <!-- supplementary material link -->
+                  <!-- <span class="link-block">
+                    <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+                </div>
+              </div>
+              <!-- Background Card -->
+              <div class="teaser-box" style="
+                  background-color: #f8f8f8;  /* 浅灰背景 */
+                  border-radius: 12px;        /* 圆角 */
+                  /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); */
+                  padding: 30px;              /* 内边距 */
+                  margin-top: 20px;
+                  margin-bottom: 20px;
+                  text-align: center;         /* 居中内容 */
+              ">
+                  <img src="static/images/fig1.png" alt="A-Bench Background" style="max-width:70%; height:auto; border-radius:8px;">
+
+                  <!-- description -->
+                  <p style="font-size: 1.2rem; margin-top: 15px; margin-top: 30px;">
+                      Existing embodied benchmarks focus on external objectives and largely neglect <em>self-centric intelligence</em>. 
+                  <span style="font-weight: bold; color: #333;">MirrorBench</span> bridges this gap by introducing a mirror-based setup and a 
+                  <em>tiered evaluation protocol</em> assessing MLLMs from visual perception to self-representation.
+                  </p>
+
+                  <img src="static/images/radar.png" alt="Radar Charts" style="max-width:100%; height:auto; border-radius:8px;">
+              </div>
+
+              <!-- Overview Card -->
+              <div class="teaser-box" style="
+                  background-color: #f8f8f8;  /* 浅灰背景 */
+                  border-radius: 12px;        /* 圆角 */
+                  /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); */
+                  padding: 30px;              /* 内边距 */
+                  margin-top: 20px;
+                  margin-bottom: 20px;
+                  text-align: center;         /* 居中内容 */
+              ">
+                  <h2 class="title has-text-centered">Overview</h2>
+                  <img src="static/images/fig2.png" alt="A-Bench Overview" style="max-width:100%; height:auto; border-radius:8px;">
+
+                  <!-- description -->
+                  <p style="font-size: 1.2rem; margin-top: 30px;">
+                      The evaluation features a <strong>Self-referential Inference Loop</strong>, in which an MLLM-powered embodied agent interacts with a simulated environment. 
+                      The environment is built from an asset pool comprising multiple <em>body</em>, <em>hand</em>, and <em>mark</em> configurations. 
+                      A <strong>four-level evaluation protocol</strong> is introduced to systematically assess mirror-related capabilities: 
+                      prompts for higher levels provide progressively less prior knowledge, increasing cognitive demand while keeping the physical environment identical across trials. 
+                      Example scenes for Levels 0–3 (right) illustrate the rising complexity toward <strong>higher-order intelligence</strong>.
+                  </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
