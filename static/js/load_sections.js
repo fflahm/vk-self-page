@@ -11,10 +11,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         "sections/hero.html"
     );
 
-    await loadSection(
-        "bg-section",
-        "sections/bg.html"
-    );
+    // await loadSection(
+    //     "bg-section",
+    //     "sections/bg.html"
+    // );
 
     await loadSection(
         "overview-section",
