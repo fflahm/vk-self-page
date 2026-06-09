@@ -17,8 +17,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     );
 
     await loadSection(
-        "cognitive-section",
-        "sections/cognitive_science.html"
+        "overview-section",
+        "sections/overview.html"
     );
 
     await loadSection(
