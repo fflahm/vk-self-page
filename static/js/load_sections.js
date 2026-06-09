@@ -22,6 +22,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     );
 
     await loadSection(
+        "paradigm-section",
+        "sections/paradigm.html"
+    );
+
+    await loadSection(
         "benchmark-section",
         "sections/benchmark_results.html"
     );
