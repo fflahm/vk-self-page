@@ -12,6 +12,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     );
 
     await loadSection(
+        "bg-section",
+        "sections/bg.html"
+    );
+
+    await loadSection(
         "cognitive-section",
         "sections/cognitive_science.html"
     );
