@@ -173,125 +173,352 @@ const detailedData = [
 ];
 
 
-// 创建详细结果表格
-// const colWidth = 75; 
-const detailedTable = new Tabulator("#mirrorbench-detailed-table", { // 与html中的div id对应
-    data: detailedData,
-    layout: "fitColumns",
-    responsiveLayout: "collapse",
-    placeholder: "No Data Available",
-    height: "100%",
-    virtualDom: true,
-    virtualDomBuffer: 1000,
-    
-    // 列定义 - 按照你的LaTeX表格结构
-    columns: [
-        // 固定第一列宽度，不拉伸
-        {title: "Model", field: "model", width: 200, hozAlign: "left", headerFilter: true},
-        
-        // 其余列使用fitData，让Tabulator自适应
-        {title: "Human", headerHozAlign: "center", columns: [
-            {title: "T↑", field: "human_tsr", hozAlign: "center", formatter: valueFormatter},
-            {title: "S↑", field: "human_sir", hozAlign: "center", formatter: valueFormatter},
-            {title: "F↑", field: "human_fcr", hozAlign: "center", formatter: valueFormatter},
-            {title: "P↑", field: "human_pcr", hozAlign: "center", formatter: valueFormatter},
-            {title: "A↑", field: "human_avg", hozAlign: "center", formatter: valueFormatter}
-        ]},
-        
-        // Robot 列同样
-        {title: "Robot", headerHozAlign: "center", columns: [
-            {title: "T↑", field: "robot_tsr", hozAlign: "center", formatter: valueFormatter},
-            {title: "S↑", field: "robot_sir", hozAlign: "center", formatter: valueFormatter},
-            {title: "F↑", field: "robot_fcr", hozAlign: "center", formatter: valueFormatter},
-            {title: "P↑", field: "robot_pcr", hozAlign: "center", formatter: valueFormatter},
-            {title: "A↑", field: "robot_avg", hozAlign: "center", formatter: valueFormatter}
-        ]},
-        
-        // Overall 列
-        {title: "Overall", headerHozAlign: "center", columns: [
-            {title: "T↑", field: "overall_tsr", hozAlign: "center", formatter: valueFormatter},
-            {title: "S↑", field: "overall_sir", hozAlign: "center", formatter: valueFormatter},
-            {title: "F↑", field: "overall_fcr", hozAlign: "center", formatter: valueFormatter},
-            {title: "P↑", field: "overall_pcr", hozAlign: "center", formatter: valueFormatter},
-            {title: "A↑", field: "overall_avg", hozAlign: "center", formatter: valueFormatter, sorter: "number"}
-        ]}
-    ],
+// ===============================
+// Column definitions
+// ===============================
 
-    
-    // 行格式化
-    rowFormatter: function(row) {
-        const data = row.getData();
-        const rowEl = row.getElement();
-        
-        // Human行特殊样式
-        if (data.is_human) {
-            rowEl.style.borderTop = "2px dashed #000";
-            rowEl.style.borderBottom = "2px dashed #000";
-            rowEl.style.backgroundColor = "#ffffff";
-        }
-        // Random行特殊样式
-        else if (data.is_random) {
-            rowEl.style.borderTop = "2px dashed #000";
-            rowEl.style.borderBottom = "2px dashed #000";
-            rowEl.style.backgroundColor = "#ffffff";
-        }
-        else if (data.model.includes("-API")) {
-            rowEl.style.backgroundColor = "#fffde7"; // 浅黄色背景
-        }
-        else {
-            rowEl.style.backgroundColor = "#f1f8e9"; // 浅绿色背景
-        }
-        // 高亮最高和次高值
-        applyHighlightStyling(row, data);
-    },
-    
-    // 排序
-    initialSort: [
-        {column: "overall_avg", dir: "desc"}
-    ]
-});
+function rankFormatter(cell) {
+    return cell.getRow().getPosition(true);
+}
 
-// 值格式化函数
-function valueFormatter(cell, params) {
-    let value = cell.getValue();
-    if (value === null || value === undefined) return "";
-    
+function mirrorBenchColumns() {
+    return [
+        {
+            title: "#",
+            formatter: rankFormatter,
+            width: 55,
+            hozAlign: "center",
+            headerSort: false,
+        },
+        {
+            title: "Model",
+            field: "model",
+            width: 220,
+            hozAlign: "left",
+            headerFilter: true,
+            frozen: true,
+        },
+        {
+            title: "Human",
+            headerHozAlign: "center",
+            columns: [
+                { title: "T↑", field: "human_tsr", hozAlign: "center", formatter: valueFormatter },
+                { title: "S↑", field: "human_sir", hozAlign: "center", formatter: valueFormatter },
+                { title: "F↑", field: "human_fcr", hozAlign: "center", formatter: valueFormatter },
+                { title: "P↑", field: "human_pcr", hozAlign: "center", formatter: valueFormatter },
+                { title: "A↑", field: "human_avg", hozAlign: "center", formatter: valueFormatter },
+            ],
+        },
+        {
+            title: "Robot",
+            headerHozAlign: "center",
+            columns: [
+                { title: "T↑", field: "robot_tsr", hozAlign: "center", formatter: valueFormatter },
+                { title: "S↑", field: "robot_sir", hozAlign: "center", formatter: valueFormatter },
+                { title: "F↑", field: "robot_fcr", hozAlign: "center", formatter: valueFormatter },
+                { title: "P↑", field: "robot_pcr", hozAlign: "center", formatter: valueFormatter },
+                { title: "A↑", field: "robot_avg", hozAlign: "center", formatter: valueFormatter },
+            ],
+        },
+        {
+            title: "Overall",
+            headerHozAlign: "center",
+            columns: [
+                { title: "T↑", field: "overall_tsr", hozAlign: "center", formatter: valueFormatter },
+                { title: "S↑", field: "overall_sir", hozAlign: "center", formatter: valueFormatter },
+                { title: "F↑", field: "overall_fcr", hozAlign: "center", formatter: valueFormatter },
+                { title: "P↑", field: "overall_pcr", hozAlign: "center", formatter: valueFormatter },
+                { title: "A↑", field: "overall_avg", hozAlign: "center", formatter: valueFormatter, sorter: "number" },
+            ],
+        },
+    ];
+}
+
+function testbedColumns() {
+    const metricCol = (title, field) => ({
+        title: title,
+        field: field,
+        hozAlign: "center",
+        headerHozAlign: "center",
+        formatter: valueFormatter,
+        sorter: "number",
+
+        // 关键：不要固定 width/maxWidth，让所有指标列均分剩余空间
+        minWidth: 80,
+        widthGrow: 1,
+    });
+
+    return [
+        {
+            title: "#",
+            formatter: rankFormatter,
+            width: 55,
+            hozAlign: "center",
+            headerHozAlign: "center",
+            headerSort: false,
+        },
+        {
+            title: "Model",
+            field: "model",
+            width: 220,
+            hozAlign: "left",
+            headerHozAlign: "left",
+            headerFilter: true,
+            frozen: true,
+        },
+        {
+            title: "Easy",
+            headerHozAlign: "center",
+            columns: [
+                metricCol("L1↑", "easy_l1"),
+                metricCol("L2↑", "easy_l2"),
+                metricCol("L3↑", "easy_l3"),
+                metricCol("Avg↑", "easy_avg"),
+            ],
+        },
+        {
+            title: "Hard",
+            headerHozAlign: "center",
+            columns: [
+                metricCol("L1↑", "hard_l1"),
+                metricCol("L2↑", "hard_l2"),
+                metricCol("L3↑", "hard_l3"),
+                metricCol("Avg↑", "hard_avg"),
+            ],
+        },
+        {
+            title: "Overall",
+            headerHozAlign: "center",
+            columns: [
+                metricCol("L1↑", "overall_l1"),
+                metricCol("L2↑", "overall_l2"),
+                metricCol("L3↑", "overall_l3"),
+                metricCol("Avg↑", "overall_avg"),
+            ],
+        },
+    ];
+}
+
+
+// ===============================
+// Data registry
+// ===============================
+
+function collectBenchmarkTables() {
+    const tables = {
+        mirrorbench: {
+            label: "MirrorBench",
+            title: "MirrorBench",
+            subtitle: "Detailed results on MirrorBench.",
+            data: detailedData,
+            columns: mirrorBenchColumns(),
+            sortField: "overall_avg",
+        },
+    };
+
+    const vkTables = window.VK_SELF_TABLES || {};
+
+    Object.entries(vkTables).forEach(([key, cfg]) => {
+        tables[`vk_${key}`] = {
+            label: cfg.label || `VK-Self / ${key}`,
+            title: cfg.label || `VK-Self / ${key}`,
+            subtitle: "VK-Self testbed results. Metrics are averaged over seeds.",
+            data: cfg.data || [],
+            columns: testbedColumns(),
+            sortField: "overall_avg",
+        };
+    });
+
+    return tables;
+}
+
+
+// ===============================
+// Render logic
+// ===============================
+
+let benchmarkTable = null;
+let benchmarkTables = {};
+
+function renderTabs(activeKey) {
+    const tabsEl = document.getElementById("benchmark-tabs");
+    if (!tabsEl) return;
+
+    tabsEl.innerHTML = "";
+
+    Object.entries(benchmarkTables).forEach(([key, cfg]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "benchmark-tab";
+        button.dataset.tableKey = key;
+        button.textContent = cfg.label;
+
+        if (key === activeKey) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", () => {
+            renderBenchmarkTable(key);
+        });
+
+        tabsEl.appendChild(button);
+    });
+}
+
+function renderBenchmarkTable(key) {
+    const cfg = benchmarkTables[key];
+
+    if (!cfg) {
+        console.error(`Unknown benchmark table key: ${key}`);
+        return;
+    }
+
+    const currentScrollY = window.scrollY;
+
+    const titleEl = document.getElementById("benchmark-table-title");
+    const subtitleEl = document.getElementById("benchmark-table-subtitle");
+
+    if (titleEl) titleEl.textContent = cfg.title;
+    if (subtitleEl) subtitleEl.textContent = cfg.subtitle || "";
+
+    document.querySelectorAll(".benchmark-tab").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tableKey === key);
+    });
+
+    // 第一次创建表格
+    if (!benchmarkTable) {
+        benchmarkTable = new Tabulator("#benchmark-table", {
+            data: cfg.data,
+            layout: "fitDataTable",
+            responsiveLayout: "collapse",
+            placeholder: "No Data Available",
+
+            // 不设置 height，让表格根据数据量自然向下延展
+            columns: cfg.columns,
+
+            rowFormatter: function (row) {
+                const data = row.getData();
+                const rowEl = row.getElement();
+
+                if (data.is_human) {
+                    rowEl.style.borderTop = "2px dashed #000";
+                    rowEl.style.borderBottom = "2px dashed #000";
+                    rowEl.style.backgroundColor = "#ffffff";
+                } else if (data.is_random) {
+                    rowEl.style.borderTop = "2px dashed #000";
+                    rowEl.style.borderBottom = "2px dashed #000";
+                    rowEl.style.backgroundColor = "#ffffff";
+                } else if (data.is_api || String(data.model).includes("-API")) {
+                    rowEl.style.backgroundColor = "#fffde7";
+                } else {
+                    rowEl.style.backgroundColor = "#f1f8e9";
+                }
+
+                applyHighlightStyling(row, data);
+            },
+
+            initialSort: [
+                { column: cfg.sortField || "overall_avg", dir: "desc" },
+            ],
+        });
+
+        requestAnimationFrame(() => {
+            benchmarkTable.redraw(true);
+            window.scrollTo({ top: currentScrollY, behavior: "auto" });
+        });
+
+        return;
+    }
+
+    // 后续切换：不 destroy，避免页面跳动；只替换 columns 和 data
+    benchmarkTable.setColumns(cfg.columns);
+
+    benchmarkTable.replaceData(cfg.data).then(() => {
+        benchmarkTable.setSort(cfg.sortField || "overall_avg", "desc");
+        benchmarkTable.redraw(true);
+
+        requestAnimationFrame(() => {
+            window.scrollTo({ top: currentScrollY, behavior: "auto" });
+        });
+    });
+}
+
+
+// ===============================
+// Formatters
+// ===============================
+
+function valueFormatter(cell) {
+    const value = cell.getValue();
+
+    if (value === null || value === undefined || Number.isNaN(value)) {
+        return "";
+    }
+
+    if (typeof value !== "number") {
+        return value;
+    }
+
     let formattedValue = value.toFixed(3);
-    
-    // 特殊值处理
+
     if (Math.abs(value) < 0.0005 && value !== 0) {
         formattedValue = value > 0 ? ">0.000" : "<0.000";
     }
-    
+
     return formattedValue;
 }
 
-// 应用高亮样式
 function applyHighlightStyling(row, data) {
-    row.getCells().forEach(cell => {
+    row.getCells().forEach((cell) => {
         const field = cell.getField();
         const cellEl = cell.getElement();
 
-        // 跳过 model 列
-        if (field === "model") return;
+        if (!field || field === "model") return;
 
-        const keyA = "highlight_" + field + "_A";
-        const keyB = "highlight_" + field + "_B";
+        const keyA = `highlight_${field}_A`;
+        const keyB = `highlight_${field}_B`;
 
-        // A：最高值（红色，优先级最高）
         if (data[keyA]) {
-            // cellEl.style.backgroundColor = "#4472c4";
             cellEl.style.color = "#4472c4";
-            cellEl.style.fontWeight = "bold";
+            cellEl.style.fontWeight = "700";
             return;
         }
 
-        // B：次高值（黄色）
         if (data[keyB]) {
-            // cellEl.style.backgroundColor = "#E76254";
             cellEl.style.color = "#E76254";
-            cellEl.style.fontWeight = "bold";
-            return;
+            cellEl.style.fontWeight = "700";
         }
     });
+}
+
+
+// ===============================
+// Init
+// ===============================
+
+function initBenchmarkTables() {
+    const tableEl = document.getElementById("benchmark-table");
+
+    if (!tableEl) {
+        console.error("Cannot find #benchmark-table. Check sections/benchmark_results.html.");
+        return;
+    }
+
+    benchmarkTables = collectBenchmarkTables();
+
+    const keys = Object.keys(benchmarkTables);
+
+    if (keys.length === 0) {
+        console.error("No benchmark tables found.");
+        return;
+    }
+
+    renderTabs(keys[0]);
+    renderBenchmarkTable(keys[0]);
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initBenchmarkTables);
+} else {
+    initBenchmarkTables();
 }
