@@ -5,7 +5,7 @@ body {
   padding: 0;
 }
 
-处重复和冲突，尤其是这几段会导致表.footer .icon-link {
+footer .icon-link {
   font-size: 25px;
   color: #000;
 }
