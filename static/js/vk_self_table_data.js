@@ -1,6 +1,6 @@
 window.VK_SELF_TABLES = {
   "2d": {
-    "label": "VK-Self / 2d",
+    "label": "Minimal Agency Discovery",
     "env": "2d",
     "data": [
       {
@@ -355,7 +355,7 @@ window.VK_SELF_TABLES = {
     ]
   },
   "sc2": {
-    "label": "VK-Self / sc2",
+    "label": "Self–Other Causal Attribution",
     "env": "sc2",
     "data": [
       {
@@ -714,7 +714,7 @@ window.VK_SELF_TABLES = {
     ]
   },
   "isaac": {
-    "label": "VK-Self / isaac",
+    "label": "Embodied Self-Representation",
     "env": "isaac",
     "data": [
       {

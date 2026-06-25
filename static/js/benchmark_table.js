@@ -177,17 +177,68 @@ const detailedData = [
 // Column definitions
 // ===============================
 
+const RANK_FIELD = "_display_rank";
+
 function rankFormatter(cell) {
-    return cell.getRow().getPosition(true);
+    const value = cell.getValue();
+
+    if (value !== undefined && value !== null) {
+        return value;
+    }
+
+    const table = cell.getTable();
+    const row = cell.getRow();
+    const rows = table.getRows("active");
+    const index = rows.indexOf(row);
+
+    return index >= 0 ? index + 1 : row.getPosition(true);
+}
+
+function refreshRankColumnRows(rows) {
+    rows.forEach((row, index) => {
+        if (!row || typeof row.getCells !== "function") return;
+
+        const rank = index + 1;
+        const data = row.getData();
+        const rankCell = typeof row.getCell === "function" ? row.getCell(RANK_FIELD) : row.getCells()[0];
+
+        data[RANK_FIELD] = rank;
+
+        if (rankCell) {
+            rankCell.getElement().textContent = rank;
+        }
+    });
+}
+
+function refreshRankColumn(table) {
+    if (!table || typeof table.getRows !== "function") return;
+
+    refreshRankColumnRows(table.getRows("active"));
+}
+
+function bindRankRefreshEvents(table) {
+    if (!table || typeof table.on !== "function") return;
+
+    const refresh = () => {
+        requestAnimationFrame(() => {
+            refreshRankColumn(table);
+        });
+    };
+
+    table.on("dataSorted", refresh);
+    table.on("dataFiltered", refresh);
+    table.on("renderComplete", refresh);
 }
 
 function mirrorBenchColumns() {
     return [
         {
             title: "#",
+            field: RANK_FIELD,
             formatter: rankFormatter,
             width: 55,
             hozAlign: "center",
+            headerHozAlign: "center",
             headerSort: false,
         },
         {
@@ -251,6 +302,7 @@ function testbedColumns() {
     return [
         {
             title: "#",
+            field: RANK_FIELD,
             formatter: rankFormatter,
             width: 55,
             hozAlign: "center",
@@ -305,11 +357,23 @@ function testbedColumns() {
 // ===============================
 
 function collectBenchmarkTables() {
+    const vkTableShortLabels = {
+        "2d": "Minimal Agency",
+        sc2: "Self–Other",
+        isaac: "Embodied Self",
+    };
+
+    const vkTableSubtitles = {
+        "2d": "Can MLLM identify which entity it controls?",
+        sc2: "Can MLLM attribute observed outcomes to itself?",
+        isaac: "Can MLLM form an internal representation of its own body?",
+    };
+
     const tables = {
         mirrorbench: {
             label: "MirrorBench",
             title: "MirrorBench",
-            subtitle: "Detailed results on MirrorBench.",
+            subtitle: "Can MLLM recognize itself in a mirror?",
             data: detailedData,
             columns: mirrorBenchColumns(),
             sortField: "overall_avg",
@@ -319,10 +383,12 @@ function collectBenchmarkTables() {
     const vkTables = window.VK_SELF_TABLES || {};
 
     Object.entries(vkTables).forEach(([key, cfg]) => {
+        const title = cfg.label || `VK-Self / ${key}`;
+
         tables[`vk_${key}`] = {
-            label: cfg.label || `VK-Self / ${key}`,
-            title: cfg.label || `VK-Self / ${key}`,
-            subtitle: "VK-Self testbed results. Metrics are averaged over seeds.",
+            label: vkTableShortLabels[key] || title,
+            title,
+            subtitle: vkTableSubtitles[key] || "VK-Self testbed results. Metrics are averaged over seeds.",
             data: cfg.data || [],
             columns: testbedColumns(),
             sortField: "overall_avg",
@@ -408,10 +474,8 @@ function renderBenchmarkTable(key) {
                     rowEl.style.borderTop = "2px dashed #000";
                     rowEl.style.borderBottom = "2px dashed #000";
                     rowEl.style.backgroundColor = "#ffffff";
-                } else if (data.is_api || String(data.model).includes("-API")) {
-                    rowEl.style.backgroundColor = "#fffde7";
                 } else {
-                    rowEl.style.backgroundColor = "#f1f8e9";
+                    rowEl.style.backgroundColor = "#ffffff";
                 }
 
                 applyHighlightStyling(row, data);
@@ -422,8 +486,11 @@ function renderBenchmarkTable(key) {
             ],
         });
 
+        bindRankRefreshEvents(benchmarkTable);
+
         requestAnimationFrame(() => {
             benchmarkTable.redraw(true);
+            refreshRankColumn(benchmarkTable);
             window.scrollTo({ top: currentScrollY, behavior: "auto" });
         });
 
@@ -435,9 +502,11 @@ function renderBenchmarkTable(key) {
 
     benchmarkTable.replaceData(cfg.data).then(() => {
         benchmarkTable.setSort(cfg.sortField || "overall_avg", "desc");
+        refreshRankColumn(benchmarkTable);
         benchmarkTable.redraw(true);
 
         requestAnimationFrame(() => {
+            refreshRankColumn(benchmarkTable);
             window.scrollTo({ top: currentScrollY, behavior: "auto" });
         });
     });
